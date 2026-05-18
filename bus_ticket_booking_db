@@ -1,0 +1,86 @@
+CREATE DATABASE bus_ticket_booking_db;
+
+USE bus_ticket_booking_db;
+
+CREATE TABLE passengers (
+    passenger_id INT PRIMARY KEY,
+    passenger_name VARCHAR(100),
+    email VARCHAR(100),
+    city VARCHAR(50)
+);
+
+CREATE TABLE bus_routes (
+    route_id INT PRIMARY KEY,
+    source_city VARCHAR(50),
+    destination_city VARCHAR(50),
+    distance_km INT
+);
+
+CREATE TABLE buses (
+    bus_id INT PRIMARY KEY,
+    bus_name VARCHAR(100),
+    bus_type VARCHAR(50),
+    total_seats INT,
+    route_id INT,
+    FOREIGN KEY (route_id) REFERENCES bus_routes(route_id)
+);
+
+CREATE TABLE bookings (
+    booking_id INT PRIMARY KEY,
+    passenger_id INT,
+    bus_id INT,
+    booking_date DATE,
+    ticket_price DECIMAL(10,2),
+    FOREIGN KEY (passenger_id) REFERENCES passengers(passenger_id),
+    FOREIGN KEY (bus_id) REFERENCES buses(bus_id)
+);
+
+CREATE TABLE payments (
+    payment_id INT PRIMARY KEY,
+    booking_id INT,
+    payment_method VARCHAR(50),
+    payment_status VARCHAR(20),
+    FOREIGN KEY (booking_id) REFERENCES bookings(booking_id)
+);
+
+USE bus_ticket_booking_db;
+
+INSERT INTO passengers VALUES
+(1, 'Arjun', 'arjun@gmail.com', 'Hyderabad'),
+(2, 'Sai', 'sai@gmail.com', 'Vijayawada'),
+(3, 'Rahul', 'rahul@gmail.com', 'Guntur'),
+(4, 'Kiran', 'kiran@gmail.com', 'Vizag'),
+(5, 'Teja', 'teja@gmail.com', 'Tirupati');
+
+INSERT INTO bus_routes VALUES
+(101, 'Hyderabad', 'Vijayawada', 275),
+(102, 'Vizag', 'Hyderabad', 620),
+(103, 'Tirupati', 'Guntur', 380),
+(104, 'Vijayawada', 'Vizag', 350);
+
+INSERT INTO buses VALUES
+(1001, 'Orange Travels', 'AC Sleeper', 40, 101),
+(1002, 'VRL Travels', 'Non-AC Seater', 45, 102),
+(1003, 'SRS Travels', 'AC Sleeper', 38, 103),
+(1004, 'Kaveri Travels', 'Volvo AC', 42, 104),
+(1005, 'Morning Star', 'Semi Sleeper', 40, 101);
+
+INSERT INTO bookings VALUES
+(5001, 1, 1001, '2026-05-01', 1200.00),
+(5002, 2, 1002, '2026-05-03', 1500.00),
+(5003, 3, 1003, '2026-05-05', 1800.00),
+(5004, 1, 1004, '2026-05-07', 2200.00),
+(5005, 4, 1005, '2026-05-10', 1300.00);
+
+INSERT INTO payments VALUES
+(9001, 5001, 'UPI', 'Paid'),
+(9002, 5002, 'Card', 'Paid'),
+(9003, 5003, 'Cash', 'Pending'),
+(9004, 5004, 'UPI', 'Paid'),
+(9005, 5005, 'Card', 'Pending');
+
+-- 1. Display buses with ticket price greater than 1500
+
+SELECT * 
+FROM bookings
+WHERE ticket_price > 1500;

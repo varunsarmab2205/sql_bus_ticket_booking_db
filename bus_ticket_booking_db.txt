@@ -1,0 +1,217 @@
+
+mysql> SELECT*FROM bookings;
++------------+--------------+--------+--------------+--------------+
+| booking_id | passenger_id | bus_id | booking_date | ticket_price |
++------------+--------------+--------+--------------+--------------+
+|       5001 |            1 |   1001 | 2026-05-01   |      1200.00 |
+|       5002 |            2 |   1002 | 2026-05-03   |      1500.00 |
+|       5003 |            3 |   1003 | 2026-05-05   |      1800.00 |
+|       5004 |            1 |   1004 | 2026-05-07   |      2200.00 |
+|       5005 |            4 |   1005 | 2026-05-10   |      1300.00 |
++------------+--------------+--------+--------------+--------------+
+5 rows in set (0.01 sec)
+
+mysql> SELECT*FROM BUS_ROUTES;
++----------+-------------+------------------+-------------+
+| route_id | source_city | destination_city | distance_km |
++----------+-------------+------------------+-------------+
+|      101 | Hyderabad   | Vijayawada       |         275 |
+|      102 | Vizag       | Hyderabad        |         620 |
+|      103 | Tirupati    | Guntur           |         380 |
+|      104 | Vijayawada  | Vizag            |         350 |
++----------+-------------+------------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT*FROM BUSES
+    -> ;
++--------+----------------+---------------+-------------+----------+
+| bus_id | bus_name       | bus_type      | total_seats | route_id |
++--------+----------------+---------------+-------------+----------+
+|   1001 | Orange Travels | AC Sleeper    |          40 |      101 |
+|   1002 | VRL Travels    | Non-AC Seater |          45 |      102 |
+|   1003 | SRS Travels    | AC Sleeper    |          38 |      103 |
+|   1004 | Kaveri Travels | Volvo AC      |          42 |      104 |
+|   1005 | Morning Star   | Semi Sleeper  |          40 |      101 |
++--------+----------------+---------------+-------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT*FROM PASSENGERS;'
++--------------+----------------+-----------------+------------+
+| passenger_id | passenger_name | email           | city       |
++--------------+----------------+-----------------+------------+
+|            1 | Arjun          | arjun@gmail.com | Hyderabad  |
+|            2 | Sai            | sai@gmail.com   | Vijayawada |
+|            3 | Rahul          | rahul@gmail.com | Guntur     |
+|            4 | Kiran          | kiran@gmail.com | Vizag      |
+|            5 | Teja           | teja@gmail.com  | Tirupati   |
++--------------+----------------+-----------------+------------+
+5 rows in set (0.00 sec)
+
+    '> ;
+    '> .
+    '> ^C
+mysql> SELECT*FROM PAYMENTS;
++------------+------------+----------------+----------------+
+| payment_id | booking_id | payment_method | payment_status |
++------------+------------+----------------+----------------+
+|       9001 |       5001 | UPI            | Paid           |
+|       9002 |       5002 | Card           | Paid           |
+|       9003 |       5003 | Cash           | Pending        |
+|       9004 |       5004 | UPI            | Paid           |
+|       9005 |       5005 | Card           | Pending        |
++------------+------------+----------------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> ^C
+mysql> SELECT * 
+    -> FROM passengers;
++--------------+----------------+-----------------+------------+
+| passenger_id | passenger_name | email           | city       |
++--------------+----------------+-----------------+------------+
+|            1 | Arjun          | arjun@gmail.com | Hyderabad  |
+|            2 | Sai            | sai@gmail.com   | Vijayawada |
+|            3 | Rahul          | rahul@gmail.com | Guntur     |
+|            4 | Kiran          | kiran@gmail.com | Vizag      |
+|            5 | Teja           | teja@gmail.com  | Tirupati   |
++--------------+----------------+-----------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * 
+    -> FROM buses
+    -> WHERE bus_type = 'AC Sleeper';
++--------+----------------+------------+-------------+----------+
+| bus_id | bus_name       | bus_type   | total_seats | route_id |
++--------+----------------+------------+-------------+----------+
+|   1001 | Orange Travels | AC Sleeper |          40 |      101 |
+|   1003 | SRS Travels    | AC Sleeper |          38 |      103 |
++--------+----------------+------------+-------------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * 
+    -> FROM bookings
+    -> WHERE ticket_price > 1500;
++------------+--------------+--------+--------------+--------------+
+| booking_id | passenger_id | bus_id | booking_date | ticket_price |
++------------+--------------+--------+--------------+--------------+
+|       5003 |            3 |   1003 | 2026-05-05   |      1800.00 |
+|       5004 |            1 |   1004 | 2026-05-07   |      2200.00 |
++------------+--------------+--------+--------------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> -- EASY QUERY 4
+mysql> -- Display all paid payments
+mysql> 
+mysql> SELECT * 
+    -> FROM payments
+    -> WHERE payment_status = 'Paid';
++------------+------------+----------------+----------------+
+| payment_id | booking_id | payment_method | payment_status |
++------------+------------+----------------+----------------+
+|       9001 |       5001 | UPI            | Paid           |
+|       9002 |       5002 | Card           | Paid           |
+|       9004 |       5004 | UPI            | Paid           |
++------------+------------+----------------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT passengers.passenger_name, bookings.booking_date
+    -> FROM passengers
+    -> JOIN bookings
+    -> ON passengers.passenger_id = bookings.passenger_id;
++----------------+--------------+
+| passenger_name | booking_date |
++----------------+--------------+
+| Arjun          | 2026-05-01   |
+| Arjun          | 2026-05-07   |
+| Sai            | 2026-05-03   |
+| Rahul          | 2026-05-05   |
+| Kiran          | 2026-05-10   |
++----------------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT buses.bus_name, bus_routes.source_city, bus_routes.destination_city
+    -> FROM buses
+    -> JOIN bus_routes
+    -> ON buses.route_id = bus_routes.route_id;
++----------------+-------------+------------------+
+| bus_name       | source_city | destination_city |
++----------------+-------------+------------------+
+| Orange Travels | Hyderabad   | Vijayawada       |
+| Morning Star   | Hyderabad   | Vijayawada       |
+| VRL Travels    | Vizag       | Hyderabad        |
+| SRS Travels    | Tirupati    | Guntur           |
+| Kaveri Travels | Vijayawada  | Vizag            |
++----------------+-------------+------------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(*) AS total_buses
+    -> FROM buses;
++-------------+
+| total_buses |
++-------------+
+|           5 |
++-------------+
+1 row in set (0.02 sec)
+
+mysql> SELECT AVG(ticket_price) AS average_ticket_price
+    -> FROM bookings;
++----------------------+
+| average_ticket_price |
++----------------------+
+|          1600.000000 |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT passenger_name
+    -> FROM passengers
+    -> WHERE passenger_id IN (
+    ->     SELECT passenger_id
+    ->     FROM bookings
+    ->     WHERE ticket_price > (
+    ->         SELECT AVG(ticket_price)
+    ->         FROM bookings
+    ->     )
+    -> );
++----------------+
+| passenger_name |
++----------------+
+| Rahul          |
+| Arjun          |
++----------------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT SUM(bookings.ticket_price) AS total_revenue
+    -> FROM bookings
+    -> JOIN payments
+    -> ON bookings.booking_id = payments.booking_id
+    -> WHERE payments.payment_status = 'Paid';
++---------------+
+| total_revenue |
++---------------+
+|       4900.00 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM bus_routes
+    -> WHERE distance_km = (
+    ->     SELECT MAX(distance_km)
+    ->     FROM bus_routes
+    -> );
++----------+-------------+------------------+-------------+
+| route_id | source_city | destination_city | distance_km |
++----------+-------------+------------------+-------------+
+|      102 | Vizag       | Hyderabad        |         620 |
++----------+-------------+------------------+-------------+
+1 row in set (0.02 sec)
+
+mysql> SELECT passenger_id, COUNT(*) AS total_bookings
+    -> FROM bookings
+    -> GROUP BY passenger_id
+    -> HAVING COUNT(*) > 1;
++--------------+----------------+
+| passenger_id | total_bookings |
++--------------+----------------+
+|            1 |              2 |
++--------------+----------------+
+1 row in set (0.00 sec)
+

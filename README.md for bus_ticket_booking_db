@@ -1,0 +1,39 @@
+# 🚌 Bus Ticket Booking Database Management System
+
+A complete SQL-based Bus Ticket Booking Database project developed using MySQL.  
+This project demonstrates database creation, table relationships, ER modeling, and SQL queries for managing a bus reservation system.
+
+## 📌 Project Overview
+
+The Bus Ticket Booking Database helps manage:
+
+- Passenger details
+- Bus routes
+- Bus schedules
+- Ticket bookings
+- Payments
+- Seat allocation
+
+This project is useful for learning:
+
+- Database Management Systems (DBMS)
+- SQL Queries
+- ER Diagrams
+- Relational Database Concepts
+- Joins and Relationships
+
+---
+
+## 🛠️ Technologies Used
+
+- MySQL
+- SQL
+- DBMS Concepts
+- ER Diagram Design
+
+---
+
+## 📂 Database Name
+
+```sql
+bus_ticket_booking_db

@@ -37,3 +37,55 @@ This project is useful for learning:
 
 ```sql
 bus_ticket_booking_db
+
+
+
+
+
+
+---
+
+# README.md for `bookstore_db`
+
+```md
+# 📚 Bookstore Database Management System
+
+A SQL-based Bookstore Database project developed using MySQL.  
+This project demonstrates relational database design, ER modeling, and SQL query operations for an online bookstore management system.
+
+---
+
+## 📌 Project Overview
+
+The Bookstore Database helps manage:
+
+- Customers
+- Books
+- Authors
+- Orders
+- Payments
+- Categories
+
+This project is designed for learning:
+
+- DBMS Concepts
+- SQL Queries
+- ER Diagrams
+- Database Relationships
+- Normalization
+
+---
+
+## 🛠️ Technologies Used
+
+- MySQL
+- SQL
+- DBMS
+- ER Diagram Design
+
+---
+
+## 📂 Database Name
+
+```sql
+bookstore_db
